@@ -39,6 +39,26 @@ body {
   box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.37);
 }
 
+/* Minimal scrollbar styles for all scrollable elements */
+/* Chrome, Edge, Safari */
+::-webkit-scrollbar {
+  width: 4px;
+  height: 4px;
+}
+::-webkit-scrollbar-thumb {
+  background: rgba(120, 120, 120, 0.2);
+  border-radius: 2px;
+}
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+/* Firefox */
+* {
+  scrollbar-width: thin;
+  scrollbar-color: rgba(120, 120, 120, 0.2) transparent;
+}
+
 /* Custom Animations */
 @keyframes aurora-1 {
   0%, 100% { transform: translateX(0) translateY(0) scale(1); }
