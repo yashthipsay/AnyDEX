@@ -1,47 +1,48 @@
-import { SwapInterface } from '@/components/swap/swap-interface'
-import { GalaxyBackground } from '@/components/3d/galaxy-background'
+import { TradingCockpit } from '@/components/swap/trading-cockpit'
+import { GalaxyAuroraBackground } from '@/components/3d/galaxy-aurora-background'
 import { Navigation } from '@/components/layout/navigation'
-import { PastTransactions } from '@/components/history/past-transactions'
-import { LiveMarketData } from '@/components/market/live-market-data'
-import { MultichainAssetData } from '@/components/multichain/multichain-asset-data'
+import { TransactionTimeline } from '@/components/history/transaction-timeline'
+import { QuickActions } from '@/components/actions/quick-actions'
+import { BottomDock } from '@/components/layout/bottom-dock'
 
 export default function HomePage() {
   return (
-    <main className="relative min-h-screen bg-gradient-to-br from-slate-900 via-purple-900/20 to-slate-900">
-      {/* 3D Galaxy Background */}
-      <GalaxyBackground />
-
-      {/* Main Content */}
+    <div className="relative min-h-screen overflow-hidden">
+      {/* Enhanced Aurora Background */}
+      <GalaxyAuroraBackground />
+      
+      {/* Floating Navigation */}
+      <Navigation />
+      
+  {/* Removed redundant floating Market Pulse to avoid overlap with Transaction Timeline */}
+      
+      {/* Main Trading Interface */}
       <div className="relative z-10">
-        <Navigation />
-
-        {/* Three-column layout */}
-        <div className="container mx-auto px-4 py-6">
-          <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
-            {/* Left: Past Transactions */}
-            <div className="order-2 lg:order-1">
-              <PastTransactions />
+        <div className="container mx-auto px-4 pt-24 pb-32">
+          <div className="grid grid-cols-12 gap-6">
+            
+            {/* Left Sidebar - Market Context */}
+            <div className="col-span-12 lg:col-span-3 space-y-6">
+              <QuickActions />
             </div>
-
-            {/* Center: Swap (sticky with internal content) */}
-            <div className="order-1 lg:order-2">
+            
+            {/* Center - Trading Cockpit */}
+            <div className="col-span-12 lg:col-span-6">
               <div className="sticky top-24">
-                <SwapInterface />
+                <TradingCockpit />
               </div>
             </div>
-
-            {/* Right: Live Market Data */}
-            <div className="order-3 lg:order-3">
-              <LiveMarketData />
+            
+            {/* Right Sidebar - Transaction Chronicle */}
+            <div className="col-span-12 lg:col-span-3">
+              <TransactionTimeline />
             </div>
           </div>
         </div>
-
-        {/* Bottom: Multichain Asset Data (sticky to bottom) */}
-        <div className="container mx-auto px-4 pb-4">
-          <MultichainAssetData />
-        </div>
       </div>
-    </main>
+      
+      {/* Bottom Dock - Collapsible Multichain & Market Pulse */}
+      <BottomDock />
+    </div>
   )
 }
