@@ -3,7 +3,9 @@
 import { useState } from 'react'
 import { ArrowUpDown, Settings, Zap, ChevronDown } from 'lucide-react'
 import { cn } from '@/lib/utils'
+import { PriceImpactSlider } from '@/components/swap/price-impact-slider'
 import { useSwapStore } from '@/store/swap-store'
+import type { Token, SwapRoute } from '@/store/swap-store'
 
 export function SwapInterface() {
   const [showSettings, setShowSettings] = useState(false)
@@ -62,7 +64,7 @@ export function SwapInterface() {
           <TokenInput
             label="To"
             token={toToken}
-            amount="0.00"
+            amount={selectedRoute?.outputAmount ?? '0.00'}
             onAmountChange={() => {}}
             onTokenSelect={() => {/* TODO: Open token selector */}}
             balance="0.00"
@@ -70,8 +72,11 @@ export function SwapInterface() {
           />
         </div>
 
-        {/* Route Information */}
-        {selectedRoute && <RoutePreview route={selectedRoute} />}
+  {/* Route Information */}
+  {selectedRoute && <RoutePreview route={selectedRoute} />}
+
+  {/* Price Impact Slider */}
+  <PriceImpactSlider value={selectedRoute?.priceImpact ?? 0} />
 
         {/* Swap Button */}
         <button
@@ -122,7 +127,7 @@ function TokenInput({
   readOnly = false
 }: {
   label: string
-  token: any
+  token: Token | null
   amount: string
   onAmountChange: (value: string) => void
   onTokenSelect: () => void
@@ -208,37 +213,39 @@ function SlippageSettings() {
   )
 }
 
-function RoutePreview({ route }: { route: any }) {
+function RoutePreview({ route }: { route: SwapRoute }) {
   return (
     <div className="mt-4 p-3 bg-white/5 rounded-lg border border-white/10">
       <div className="flex justify-between items-center text-sm">
         <span className="text-gray-400">Rate</span>
-        <span>1 ETH = 2,456.78 USDC</span>
+        <span>
+          Output: {route.outputAmount}
+        </span>
       </div>
       <div className="flex justify-between items-center text-sm mt-1">
         <span className="text-gray-400">Price Impact</span>
-        <span className="text-green-400">0.12%</span>
+        <span className="text-green-400">{route.priceImpact.toFixed(2)}%</span>
       </div>
       <div className="flex justify-between items-center text-sm mt-1">
         <span className="text-gray-400">Est. Gas</span>
-        <span>$2.31</span>
+        <span>{route.gasEstimate}</span>
       </div>
     </div>
   )
 }
 
-function RouteDetails({ route }: { route: any }) {
+function RouteDetails({ route }: { route: SwapRoute }) {
   return (
     <div className="space-y-3">
       <h3 className="font-medium">Route Details</h3>
       <div className="space-y-2">
         <div className="flex items-center justify-between text-sm">
-          <span className="text-gray-400">Via Uniswap V3</span>
-          <span>60%</span>
+          <span className="text-gray-400">Route ID</span>
+          <span>{route.id}</span>
         </div>
         <div className="flex items-center justify-between text-sm">
-          <span className="text-gray-400">Via 1inch</span>
-          <span>40%</span>
+          <span className="text-gray-400">Input</span>
+          <span>{route.inputAmount}</span>
         </div>
       </div>
     </div>

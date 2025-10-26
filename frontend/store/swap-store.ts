@@ -1,7 +1,7 @@
 import { create } from 'zustand'
 import { devtools } from 'zustand/middleware'
 
-interface Token {
+export interface Token {
   address: string
   symbol: string
   name: string
@@ -10,7 +10,7 @@ interface Token {
   chainId: number
 }
 
-interface SwapRoute {
+export interface SwapRoute {
   id: string
   inputAmount: string
   outputAmount: string
