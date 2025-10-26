@@ -33,7 +33,7 @@ export default function HomePage() {
               </div>
             </div>
             
-            {/* Right Sidebar - Transaction Chronicle */}
+            {/* Right Sidebar - Transaction History */}
             <div className="col-span-12 lg:col-span-3">
               <TransactionTimeline />
             </div>

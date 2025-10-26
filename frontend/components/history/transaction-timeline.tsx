@@ -69,7 +69,7 @@ export function TransactionTimeline() {
       <div className="flex items-center justify-between mb-6">
         <h3 className="text-lg font-bold bg-gradient-to-r from-purple-400 to-blue-400 bg-clip-text text-transparent flex items-center space-x-2">
           <Clock className="h-5 w-5 text-purple-400" />
-          <span>Transaction Chronicle</span>
+          <span>Transaction History</span>
         </h3>
         <div className="text-sm text-gray-400">
           Total Saved: <span className="text-green-400 font-medium">$89.32</span>
